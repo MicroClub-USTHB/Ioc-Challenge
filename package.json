@@ -1,5 +1,5 @@
 {
-    "name": "impact-of-code",
+    "name": "@microclub-usthb/ioc-challenge",
     "version": "1.0.0",
     "description": "Micro club usthb is Making new online challenges called Impact of code That are modeled in this package.",
     "type": "module",
@@ -24,11 +24,11 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "directory": "git+https://github.com/MicroClub-USTHB/Ioc-Challenge.git"
+        "directory": "git+https://github.com/microclub-usthb/ioc-challenge.git"
     },
     "bugs": {
-        "url": "https://github.com/MicroClub-USTHB/Ioc-Challenge/issues",
+        "url": "https://github.com/microclub-usthb/ioc-challenge/issues",
         "email": "madadiyoucef@outlook.com"
     },
-    "homepage": "https://github.com/MicroClub-USTHB/Ioc-Challenge#readme"
+    "homepage": "https://github.com/microclub-usthb/ioc-challenge#readme"
 }
