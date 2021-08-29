@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Errors/NoChallenge.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,37 +17,31 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Errors/NoChallenge.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>Ioc-Challenge</h1>
-<p>Micro club usthb is Making new online challenges called Impact of code That are modeled in this package.</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * An Error class that get thrown when a challenge hasn't been implemented .
+ */
+class NoChallenge extends Error {
+    /**
+     * Create a not implemented method
+     * @param {string} message the name of the method that is not implemented
+     */
+    constructor(message) {
+        super(`Challenge not implemented "${message}"`);
+    }
+}
+export default NoChallenge;
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

@@ -1,0 +1,24 @@
+{
+	// Place your ioc-challenge-2021 workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	"Challenge": {
+		"scope": "javascript,typescript",
+		"prefix": "challenge",
+		"body": [
+			"import Challenge from 'impact-of-code';",
+			"class $0 extends Challenge {",
+			"    InputGenerator(InputsNum) {",
+			"        if (!this._InputGenerated) {",
+			"            this._InputGenerated = true;",
+			"        }",
+			"    }",
+			"    OutputGenerator() {",
+			"        if (!this._OutputGenerated) {",
+			"            this._OutputGenerated = true;",
+			"        }",
+			"    }",
+			"}",
+			"export default $0;"
+		],
+		"description": "Create a challenge from the Ioc template"
+	}
+}

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: app.js</title>
+    <title>JSDoc: Source: Challenge.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: app.js</h1>
+    <h1 class="page-title">Source: Challenge.js</h1>
 
     
 
@@ -27,16 +27,6 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * This JavaScript file contains foo bar baz...
- *
- * @projectname ioc-challenge
- * @version 1.0.1
- * @author shirogin
- * @copyright 2021
- */
-import NotExtended from "./Errors/NotExtended.js";
-import NotImplemented from "./Errors/NotImplemented.js";
-/**
  * @typedef {Number|String} NS
  */
 /**
@@ -45,25 +35,13 @@ import NotImplemented from "./Errors/NotImplemented.js";
  * @property {NS} [output] the output of the challenge to be set if its already generated.
  */
 /**
- * Enum Answers values
- * @enum {string}
- */
-const Answers = {
-    /** this message get send when the challenger submit the correct answer. */
-    Correct: "Correct answer",
-    /** this message get send when the challenger submit the wrong string answer. */
-    Wrong: "Not Correct Try Again",
-    /** this message get send when the challenger submit lower number as an answer. */
-    Lower: "Answer is Lower than what we expected.",
-    /** this message get send when the challenger submit higher number as an answer. */
-    Higher: "Answer is higher than what we expected.",
-};
-/**
  * @typedef {object} Result
- * @property {Answers} message a message to be sent to the challenger so he can understand the result
+ * @property {string} message
  * @property {boolean} result
  */
 
+import NotExtended from "./NotExtended.js";
+import NotImplemented from "./NotImplemented.js";
 /**
  * An abstract Class representing the base challenge that allow us create uniformed challenges
  * @property {Boolean} [_InputGenerated=false] check if the input has been assigned
@@ -139,12 +117,12 @@ class Challenge {
         let b = answer === this._Output;
         return {
             message: b
-                ? Answers.Correct
+                ? "Correct answer"
                 : typeof this._Output === "string"
-                ? Answers.Wrong
+                ? "Not Correct Try Again"
                 : this._Output > output
-                ? Answers.Lower
-                : Answers.Higher,
+                ? "Answer is Lower than what we expected."
+                : "Answer is higher than what we expected.",
             result: b,
         };
     }
@@ -167,75 +145,8 @@ class Challenge {
         throw new NotImplemented("GetInputs");
     }
 }
-export default Challenge;
 
-import NoChallenge from "./Errors/NoChallenge.js";
-/**
- * @typedef {object} ChallengesT
- * @property {Challenge[]} main list of the main challenges
- * @property {Challenge[]} side list of the side challenges
- */
-/**
- *
- * @type {ChallengesT}
- */
-let Challenges = {},
-    imported = false;
-/**
- * @typedef {object} Load configuration to load Challenges
- * @property {string} [path="./challenges"] the path of the challenges to be loaded.
- * @property {string} [MainName="Main Challenge"] the Name of the Main challenge without the Number
- * @property {string} [SideName="Side Challenge"] the Name of the Side challenge without the Number
- * @property {Number} [DayNumber=7] the Number of the Days to be held
- */
-/**
- * This function loads the challenges of declared
- * @param {Load} [config={path: "./challenges",MainName: "Main Challenge",SideName: "Side Challenge",DayNumber = 7}] necessary configuration to load Challenges
- * @returns {Promise&lt;Boolean>} returns a Promise that return Boolean once it's fulfilled
- */
-function loadChallenges(
-    { path = "./challenges", MainName = "Main Challenge", SideName = "Side Challenge", DayNumber = 7 } = {
-        path: "./challenges",
-        MainName: "Main Challenge",
-        SideName: "Side Challenge",
-        DayNumber: 7,
-    }
-) {
-    let main = [],
-        side = [];
-    for (let i = 1; i &lt;= DayNumber; i++) {
-        main.push(
-            import(`${path}/Day${i}/${MainName}.js`).catch(() => {
-                throw new NoChallenge(`Main Challenge${i}`);
-            })
-        );
-        side.push(
-            import(`${path}/Day${i}/${SideName}.js`).catch(() => {
-                throw new NoChallenge(`Side Challenge${i}`);
-            })
-        );
-    }
-    return Promise.all([
-        Promise.all(main).then((challenges) => {
-            Challenges.main = challenges;
-        }),
-        Promise.all(side).then((challenges) => {
-            Challenges.side = challenges;
-        }),
-    ])
-        .then(() => (imported = true))
-        .catch(() => false);
-}
-/**
- * Get the challenge using the day and the type of the challenge (main/side)
- * @param {Number} [day=1] this number represents day of the challenge
- * @param {Boolean} [main=true] this boolean represents if the challenge is main or not(side)
- * @returns {undefined|Challenge} the challenge of the day with its type requested if the challenges has been imported;
- */
-function GetChallenge(day = 1, main = true) {
-    if (imported) return Challenges[main ? "main" : "side"][day - 1];
-}
-export { loadChallenges, GetChallenge, NotExtended, NotImplemented, NoChallenge };
+export default Challenge;
 </code></pre>
         </article>
     </section>
@@ -246,13 +157,13 @@ export { loadChallenges, GetChallenge, NotExtended, NotImplemented, NoChallenge 
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Challenge.html">Challenge</a></li><li><a href="NoChallenge.html">NoChallenge</a></li><li><a href="NotExtended.html">NotExtended</a></li><li><a href="NotImplemented.html">NotImplemented</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Answers">Answers</a></li><li><a href="global.html#Challenges">Challenges</a></li><li><a href="global.html#GetChallenge">GetChallenge</a></li><li><a href="global.html#loadChallenges">loadChallenges</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Challenge.html">Challenge</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Aug 29 2021 14:31:45 GMT+0100 (West Africa Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Aug 29 2021 08:25:03 GMT+0100 (West Africa Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

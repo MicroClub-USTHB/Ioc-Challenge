@@ -1,4 +1,14 @@
 /**
+ * This JavaScript file contains foo bar baz...
+ *
+ * @projectname ioc-challenge
+ * @version 1.0.1
+ * @author shirogin
+ * @copyright 2021
+ */
+import NotExtended from "./Errors/NotExtended.js";
+import NotImplemented from "./Errors/NotImplemented.js";
+/**
  * @typedef {Number|String} NS
  */
 /**
@@ -7,34 +17,25 @@
  * @property {NS} [output] the output of the challenge to be set if its already generated.
  */
 /**
+ * Enum Answers values
+ * @enum {string}
+ */
+const Answers = {
+    /** this message get send when the challenger submit the correct answer. */
+    Correct: "Correct answer",
+    /** this message get send when the challenger submit the wrong string answer. */
+    Wrong: "Not Correct Try Again",
+    /** this message get send when the challenger submit lower number as an answer. */
+    Lower: "Answer is Lower than what we expected.",
+    /** this message get send when the challenger submit higher number as an answer. */
+    Higher: "Answer is higher than what we expected.",
+};
+/**
  * @typedef {object} Result
- * @property {string} message
- * @property {boolean} result
+ * @property {Answers} message a message to be sent to the challenger so he can understand the result
+ * @property {boolean} result a boolean to be sent with the message so it helps the client renderer to show the message correctly
  */
-/**
- * An Error class that get thrown when an abstract method has been called without re-implementing it.
- */
-class NotImplemented extends Error {
-    /**
-     * Create a not implemented method
-     * @param {string} message the name of the method that is not implemented
-     */
-    constructor(message = "") {
-        super(`Method not implemented "${message}"`);
-    }
-}
-/**
- * An Error class that get thrown when an abstract class has been called without extending it.
- */
-class NotExtended extends Error {
-    /**
-     * Create NotExtended Error that Add the layer of abstraction;
-     * @param {String} className the name of the class that has thrown the Error;
-     */
-    constructor(className = "\b") {
-        super(`This ${className} is an abstract class you can't create an instance of it.`);
-    }
-}
+
 /**
  * An abstract Class representing the base challenge that allow us create uniformed challenges
  * @property {Boolean} [_InputGenerated=false] check if the input has been assigned
@@ -110,12 +111,12 @@ class Challenge {
         let b = answer === this._Output;
         return {
             message: b
-                ? "Correct answer"
+                ? Answers.Correct
                 : typeof this._Output === "string"
-                ? "Not Correct Try Again"
+                ? Answers.Wrong
                 : this._Output > output
-                ? "Answer is Lower than what we expected."
-                : "Answer is higher than what we expected.",
+                ? Answers.Lower
+                : Answers.Higher,
             result: b,
         };
     }
@@ -138,5 +139,72 @@ class Challenge {
         throw new NotImplemented("GetInputs");
     }
 }
-
 export default Challenge;
+
+import NoChallenge from "./Errors/NoChallenge.js";
+/**
+ * @typedef {object} ChallengesT
+ * @property {Challenge[]} main list of the main challenges
+ * @property {Challenge[]} side list of the side challenges
+ */
+/**
+ *
+ * @type {ChallengesT}
+ */
+let Challenges = {},
+    imported = false;
+/**
+ * @typedef {object} Load configuration to load Challenges
+ * @property {string} [path="./challenges"] the path of the challenges to be loaded.
+ * @property {string} [MainName="Main Challenge"] the Name of the Main challenge without the Number
+ * @property {string} [SideName="Side Challenge"] the Name of the Side challenge without the Number
+ * @property {Number} [DayNumber=7] the Number of the Days to be held
+ */
+/**
+ * This function loads the challenges of declared
+ * @param {Load} [config={path: "./challenges",MainName: "Main Challenge",SideName: "Side Challenge",DayNumber = 7}] necessary configuration to load Challenges
+ * @returns {Promise<Boolean>} returns a Promise that return Boolean once it's fulfilled
+ */
+function loadChallenges(
+    { path = "./challenges", MainName = "Main Challenge", SideName = "Side Challenge", DayNumber = 7 } = {
+        path: "./challenges",
+        MainName: "Main Challenge",
+        SideName: "Side Challenge",
+        DayNumber: 7,
+    }
+) {
+    let main = [],
+        side = [];
+    for (let i = 1; i <= DayNumber; i++) {
+        main.push(
+            import(`${path}/Day${i}/${MainName}.js`).catch(() => {
+                throw new NoChallenge(`Main Challenge${i}`);
+            })
+        );
+        side.push(
+            import(`${path}/Day${i}/${SideName}.js`).catch(() => {
+                throw new NoChallenge(`Side Challenge${i}`);
+            })
+        );
+    }
+    return Promise.all([
+        Promise.all(main).then((challenges) => {
+            Challenges.main = challenges;
+        }),
+        Promise.all(side).then((challenges) => {
+            Challenges.side = challenges;
+        }),
+    ])
+        .then(() => (imported = true))
+        .catch(() => false);
+}
+/**
+ * Get the challenge using the day and the type of the challenge (main/side)
+ * @param {Number} [day=1] this number represents day of the challenge
+ * @param {Boolean} [main=true] this boolean represents if the challenge is main or not(side)
+ * @returns {undefined|Challenge} the challenge of the day with its type requested if the challenges has been imported;
+ */
+function GetChallenge(day = 1, main = true) {
+    if (imported) return Challenges[main ? "main" : "side"][day - 1];
+}
+export { loadChallenges, GetChallenge, NotExtended, NotImplemented, NoChallenge };

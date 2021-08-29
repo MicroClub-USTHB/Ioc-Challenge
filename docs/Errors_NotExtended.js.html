@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: Errors/NotExtended.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,37 +17,31 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: Errors/NotExtended.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>Ioc-Challenge</h1>
-<p>Micro club usthb is Making new online challenges called Impact of code That are modeled in this package.</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * An Error class that get thrown when an abstract class has been called without extending it.
+ */
+class NotExtended extends Error {
+    /**
+     * Create NotExtended Error that Add the layer of abstraction;
+     * @param {String} [className=""] the name of the class that has thrown the Error;
+     */
+    constructor(className = "\b") {
+        super(`This ${className} is an abstract class you can't create an instance of it.`);
+    }
+}
+export default NotExtended;
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
