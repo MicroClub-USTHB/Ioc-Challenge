@@ -29,8 +29,8 @@
             <pre class="prettyprint source linenums"><code>/**
  * This JavaScript file contains foo bar baz...
  *
- * @projectname ioc-challenge
- * @version 1.0.1
+ * @projectname impact-of-code
+ * @version 1.0.3
  * @author shirogin
  * @copyright 2021
  */
@@ -61,7 +61,7 @@ const Answers = {
 /**
  * @typedef {object} Result
  * @property {Answers} message a message to be sent to the challenger so he can understand the result
- * @property {boolean} result
+ * @property {boolean} result a boolean to be sent with the message so it helps the client renderer to show the message correctly
  */
 
 /**
@@ -171,71 +171,43 @@ export default Challenge;
 
 import NoChallenge from "./Errors/NoChallenge.js";
 /**
- * @typedef {object} ChallengesT
+ * @typedef {object} ChallengesT list of challenges (main/side)
  * @property {Challenge[]} main list of the main challenges
  * @property {Challenge[]} side list of the side challenges
  */
 /**
- *
+ * list of challenges plugged
  * @type {ChallengesT}
  */
 let Challenges = {},
+    /**
+     * if the challenge is plugged or not
+     * @type {boolean}
+     */
     imported = false;
 /**
- * @typedef {object} Load configuration to load Challenges
- * @property {string} [path="./challenges"] the path of the challenges to be loaded.
- * @property {string} [MainName="Main Challenge"] the Name of the Main challenge without the Number
- * @property {string} [SideName="Side Challenge"] the Name of the Side challenge without the Number
- * @property {Number} [DayNumber=7] the Number of the Days to be held
+ * This function plug the challenges that has been declared out of this package
+ * @param {ChallengesT} challenges the challenges to be plugged
  */
-/**
- * This function loads the challenges of declared
- * @param {Load} [config={path: "./challenges",MainName: "Main Challenge",SideName: "Side Challenge",DayNumber = 7}] necessary configuration to load Challenges
- * @returns {Promise&lt;Boolean>} returns a Promise that return Boolean once it's fulfilled
- */
-function loadChallenges(
-    { path = "./challenges", MainName = "Main Challenge", SideName = "Side Challenge", DayNumber = 7 } = {
-        path: "./challenges",
-        MainName: "Main Challenge",
-        SideName: "Side Challenge",
-        DayNumber: 7,
-    }
-) {
-    let main = [],
-        side = [];
-    for (let i = 1; i &lt;= DayNumber; i++) {
-        main.push(
-            import(`${path}/Day${i}/${MainName}.js`).catch(() => {
-                throw new NoChallenge(`Main Challenge${i}`);
-            })
-        );
-        side.push(
-            import(`${path}/Day${i}/${SideName}.js`).catch(() => {
-                throw new NoChallenge(`Side Challenge${i}`);
-            })
-        );
-    }
-    return Promise.all([
-        Promise.all(main).then((challenges) => {
-            Challenges.main = challenges;
-        }),
-        Promise.all(side).then((challenges) => {
-            Challenges.side = challenges;
-        }),
-    ])
-        .then(() => (imported = true))
-        .catch(() => false);
+function plugChallenges({ main = [], side = [] } = { main: [], side: [] }) {
+    Challenges = { main, side };
+    if (main.length > 0 || side.length > 0) imported = true;
 }
 /**
  * Get the challenge using the day and the type of the challenge (main/side)
  * @param {Number} [day=1] this number represents day of the challenge
  * @param {Boolean} [main=true] this boolean represents if the challenge is main or not(side)
  * @returns {undefined|Challenge} the challenge of the day with its type requested if the challenges has been imported;
+ * @throws {NoChallenge} throws an error if couldn't get the challenge or the challenges aren't plugged yet.
  */
 function GetChallenge(day = 1, main = true) {
-    if (imported) return Challenges[main ? "main" : "side"][day - 1];
+    if (imported) {
+        const ch = Challenges[main ? "main" : "side"][day - 1];
+        if (ch === undefined) throw new NoChallenge(main ? "main" : "side" + " challenge " + (day - 1));
+        return ch;
+    } else throw new NoChallenge();
 }
-export { loadChallenges, GetChallenge, NotExtended, NotImplemented, NoChallenge };
+export { plugChallenges, GetChallenge, NotExtended, NotImplemented, NoChallenge };
 </code></pre>
         </article>
     </section>
@@ -246,13 +218,13 @@ export { loadChallenges, GetChallenge, NotExtended, NotImplemented, NoChallenge 
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Challenge.html">Challenge</a></li><li><a href="NoChallenge.html">NoChallenge</a></li><li><a href="NotExtended.html">NotExtended</a></li><li><a href="NotImplemented.html">NotImplemented</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Answers">Answers</a></li><li><a href="global.html#Challenges">Challenges</a></li><li><a href="global.html#GetChallenge">GetChallenge</a></li><li><a href="global.html#loadChallenges">loadChallenges</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Challenge.html">Challenge</a></li><li><a href="NoChallenge.html">NoChallenge</a></li><li><a href="NotExtended.html">NotExtended</a></li><li><a href="NotImplemented.html">NotImplemented</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Answers">Answers</a></li><li><a href="global.html#Challenges">Challenges</a></li><li><a href="global.html#GetChallenge">GetChallenge</a></li><li><a href="global.html#imported">imported</a></li><li><a href="global.html#plugChallenges">plugChallenges</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Aug 29 2021 14:31:45 GMT+0100 (West Africa Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Aug 29 2021 17:40:05 GMT+0100 (West Africa Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -3,10 +3,10 @@
  */
 class NoChallenge extends Error {
     /**
-     * Create a not implemented method
-     * @param {string} message the name of the method that is not implemented
+     * Create a not implemented challenge Error
+     * @param {string} message the name of the challenge that is not implemented
      */
-    constructor(message) {
+    constructor(message = "No challenge has been found") {
         super(`Challenge not implemented "${message}"`);
     }
 }

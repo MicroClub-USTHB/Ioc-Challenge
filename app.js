@@ -1,8 +1,8 @@
 /**
  * This JavaScript file contains foo bar baz...
  *
- * @projectname ioc-challenge
- * @version 1.0.1
+ * @projectname impact-of-code
+ * @version 1.0.3
  * @author shirogin
  * @copyright 2021
  */
@@ -147,9 +147,15 @@ import NoChallenge from "./Errors/NoChallenge.js";
  * @property {Challenge[]} main list of the main challenges
  * @property {Challenge[]} side list of the side challenges
  */
-/** @type {ChallengesT} list of challenges plugged */
+/**
+ * list of challenges plugged
+ * @type {ChallengesT}
+ */
 let Challenges = {},
-    /** @type {boolean} if the challenge is plugged or not */
+    /**
+     * if the challenge is plugged or not
+     * @type {boolean}
+     */
     imported = false;
 /**
  * This function plug the challenges that has been declared out of this package
@@ -164,8 +170,13 @@ function plugChallenges({ main = [], side = [] } = { main: [], side: [] }) {
  * @param {Number} [day=1] this number represents day of the challenge
  * @param {Boolean} [main=true] this boolean represents if the challenge is main or not(side)
  * @returns {undefined|Challenge} the challenge of the day with its type requested if the challenges has been imported;
+ * @throws {NoChallenge} throws an error if couldn't get the challenge or the challenges aren't plugged yet.
  */
 function GetChallenge(day = 1, main = true) {
-    if (imported) return Challenges[main ? "main" : "side"][day - 1];
+    if (imported) {
+        const ch = Challenges[main ? "main" : "side"][day - 1];
+        if (ch === undefined) throw new NoChallenge(main ? "main" : "side" + " challenge " + (day - 1));
+        return ch;
+    } else throw new NoChallenge();
 }
 export { plugChallenges, GetChallenge, NotExtended, NotImplemented, NoChallenge };

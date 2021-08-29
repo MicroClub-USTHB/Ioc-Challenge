@@ -3,7 +3,7 @@
  */
 class NotImplemented extends Error {
     /**
-     * Create a not implemented method
+     * Create a not implemented method Error
      * @param {string} message the name of the method that is not implemented
      */
     constructor(message) {

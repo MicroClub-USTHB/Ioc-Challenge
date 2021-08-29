@@ -296,6 +296,10 @@
 
 
 
+<div class="description">
+    list of challenges plugged
+</div>
+
 
 
     <h5>Type:</h5>
@@ -342,6 +346,78 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="app.js.html">app.js</a>, <a href="app.js.html#line154">line 154</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="imported"><span class="type-signature"></span>imported<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    if the challenge is plugged or not
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -529,7 +605,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line207">line 207</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -552,6 +628,35 @@
 
 
 
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        throws an error if couldn't get the challenge or the challenges aren't plugged yet.
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type"><a href="NoChallenge.html">NoChallenge</a></span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
 
 
 <h5>Returns:</h5>
@@ -590,7 +695,7 @@
     
 
     
-    <h4 class="name" id="loadChallenges"><span class="type-signature"></span>loadChallenges<span class="signature">(config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Boolean>}</span></h4>
+    <h4 class="name" id="plugChallenges"><span class="type-signature"></span>plugChallenges<span class="signature">(challenges)</span><span class="type-signature"></span></h4>
     
 
     
@@ -598,7 +703,7 @@
 
 
 <div class="description">
-    This function loads the challenges of declared
+    This function plug the challenges that has been declared out of this package
 </div>
 
 
@@ -622,11 +727,7 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -638,39 +739,23 @@
 
         <tr>
             
-                <td class="name"><code>config</code></td>
+                <td class="name"><code>challenges</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#Load">Load</a></span>
+<span class="param-type"><a href="global.html#ChallengesT">ChallengesT</a></span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                    {path: "./challenges",MainName: "Main Challenge",SideName: "Side Challenge",DayNumber = 7}
-                
-                </td>
-            
 
-            <td class="description last">necessary configuration to load Challenges</td>
+            <td class="description last">the challenges to be plugged</td>
         </tr>
 
     
@@ -711,7 +796,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line168">line 168</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line164">line 164</a>
     </li></ul></dd>
     
 
@@ -736,28 +821,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    returns a Promise that return Boolean once it's fulfilled
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Boolean></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -775,6 +838,10 @@
 
 
 
+
+<div class="description">
+    list of challenges (main/side)
+</div>
 
 
 
@@ -1079,259 +1146,6 @@
 
             
                 
-<h4 class="name" id="Load">Load</h4>
-
-
-
-
-<div class="description">
-    configuration to load Challenges
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    "./challenges"
-                
-                </td>
-            
-
-            <td class="description last">the path of the challenges to be loaded.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>MainName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    "Main Challenge"
-                
-                </td>
-            
-
-            <td class="description last">the Name of the Main challenge without the Number</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>SideName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    "Side Challenge"
-                
-                </td>
-            
-
-            <td class="description last">the Name of the Side challenge without the Number</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>DayNumber</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    7
-                
-                </td>
-            
-
-            <td class="description last">the Number of the Days to be held</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line156">line 156</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
 <h4 class="name" id="NS">NS</h4>
 
 
@@ -1489,7 +1303,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">a boolean to be sent with the message so it helps the client renderer to show the message correctly</td>
         </tr>
 
     
@@ -1558,13 +1372,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Challenge.html">Challenge</a></li><li><a href="NoChallenge.html">NoChallenge</a></li><li><a href="NotExtended.html">NotExtended</a></li><li><a href="NotImplemented.html">NotImplemented</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Answers">Answers</a></li><li><a href="global.html#Challenges">Challenges</a></li><li><a href="global.html#GetChallenge">GetChallenge</a></li><li><a href="global.html#loadChallenges">loadChallenges</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Challenge.html">Challenge</a></li><li><a href="NoChallenge.html">NoChallenge</a></li><li><a href="NotExtended.html">NotExtended</a></li><li><a href="NotImplemented.html">NotImplemented</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Answers">Answers</a></li><li><a href="global.html#Challenges">Challenges</a></li><li><a href="global.html#GetChallenge">GetChallenge</a></li><li><a href="global.html#imported">imported</a></li><li><a href="global.html#plugChallenges">plugChallenges</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Aug 29 2021 14:31:45 GMT+0100 (West Africa Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Aug 29 2021 17:40:05 GMT+0100 (West Africa Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
