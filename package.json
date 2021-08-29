@@ -1,0 +1,13 @@
+{
+    "name": "ioc-challenge",
+    "version": "1.0.0",
+    "description": "Micro club usthb is Making new online challenges called Impact of code That are modeled in this package.",
+    "type": "module",
+    "main": "app.js",
+    "scripts": {
+        "start": "node ."
+    },
+    "private": false,
+    "author": "shirogin",
+    "license": "ISC"
+}
