@@ -143,60 +143,21 @@ export default Challenge;
 
 import NoChallenge from "./Errors/NoChallenge.js";
 /**
- * @typedef {object} ChallengesT
+ * @typedef {object} ChallengesT list of challenges (main/side)
  * @property {Challenge[]} main list of the main challenges
  * @property {Challenge[]} side list of the side challenges
  */
-/**
- *
- * @type {ChallengesT}
- */
+/** @type {ChallengesT} list of challenges plugged */
 let Challenges = {},
+    /** @type {boolean} if the challenge is plugged or not */
     imported = false;
 /**
- * @typedef {object} Load configuration to load Challenges
- * @property {string} [path="./challenges"] the path of the challenges to be loaded.
- * @property {string} [MainName="Main Challenge"] the Name of the Main challenge without the Number
- * @property {string} [SideName="Side Challenge"] the Name of the Side challenge without the Number
- * @property {Number} [DayNumber=7] the Number of the Days to be held
+ * This function plug the challenges that has been declared out of this package
+ * @param {ChallengesT} challenges the challenges to be plugged
  */
-/**
- * This function loads the challenges of declared
- * @param {Load} [config={path: "./challenges",MainName: "Main Challenge",SideName: "Side Challenge",DayNumber = 7}] necessary configuration to load Challenges
- * @returns {Promise<Boolean>} returns a Promise that return Boolean once it's fulfilled
- */
-function loadChallenges(
-    { path = "./challenges", MainName = "Main Challenge", SideName = "Side Challenge", DayNumber = 7 } = {
-        path: "./challenges",
-        MainName: "Main Challenge",
-        SideName: "Side Challenge",
-        DayNumber: 7,
-    }
-) {
-    let main = [],
-        side = [];
-    for (let i = 1; i <= DayNumber; i++) {
-        main.push(
-            import(`${path}/Day${i}/${MainName}.js`).catch(() => {
-                throw new NoChallenge(`Main Challenge${i}`);
-            })
-        );
-        side.push(
-            import(`${path}/Day${i}/${SideName}.js`).catch(() => {
-                throw new NoChallenge(`Side Challenge${i}`);
-            })
-        );
-    }
-    return Promise.all([
-        Promise.all(main).then((challenges) => {
-            Challenges.main = challenges;
-        }),
-        Promise.all(side).then((challenges) => {
-            Challenges.side = challenges;
-        }),
-    ])
-        .then(() => (imported = true))
-        .catch(() => false);
+function plugChallenges({ main = [], side = [] } = { main: [], side: [] }) {
+    Challenges = { main, side };
+    if (main.length > 0 || side.length > 0) imported = true;
 }
 /**
  * Get the challenge using the day and the type of the challenge (main/side)
@@ -207,4 +168,4 @@ function loadChallenges(
 function GetChallenge(day = 1, main = true) {
     if (imported) return Challenges[main ? "main" : "side"][day - 1];
 }
-export { loadChallenges, GetChallenge, NotExtended, NotImplemented, NoChallenge };
+export { plugChallenges, GetChallenge, NotExtended, NotImplemented, NoChallenge };

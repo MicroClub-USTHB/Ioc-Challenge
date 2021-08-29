@@ -1,13 +1,15 @@
 {
-    "name": "@microclub-usthb/ioc-challenge",
-    "version": "1.0.1",
+    "name": "impact-of-code",
+    "version": "1.0.2",
     "description": "Micro club usthb is Making new online challenges called Impact of code That are modeled in this package.",
     "type": "module",
     "main": "app.js",
     "scripts": {
         "start": "node .",
-        "doc": "jsdoc -d docs app.js Errors/NotImplemented.js Errors/NoChallenge.js Errors/NotExtended.js README.md"
+        "doc": "jsdoc -d docs app.js Errors/NotImplemented.js Errors/NoChallenge.js Errors/NotExtended.js README.md",
+        "postinstall": "npx"
     },
+    "bin": "bin/app.js",
     "keywords": [
         "challenge",
         "Micro-Club",
