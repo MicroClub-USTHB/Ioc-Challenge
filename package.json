@@ -10,12 +10,16 @@
     },
     "keywords": [
         "challenge",
-        "Micro Club",
+        "Micro-Club",
         "IOC",
-        "Impact of code",
-        "MC event"
+        "Impact-of-code",
+        "MC-event",
+        "USTHB"
     ],
     "private": false,
+    "publishConfig": {
+        "@shiroyasha:registry": "https://npm.pkg.github.com"
+    },
     "author": "shirogin",
     "license": "MIT",
     "repository": {
