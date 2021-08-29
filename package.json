@@ -22,10 +22,7 @@
     },
     "author": "shirogin",
     "license": "MIT",
-    "repository": {
-        "type": "git",
-        "directory": "git+https://github.com/microclub-usthb/ioc-challenge.git"
-    },
+    "repository": "https://github.com/microclub-usthb/ioc-challenge.git",
     "bugs": {
         "url": "https://github.com/microclub-usthb/ioc-challenge/issues",
         "email": "madadiyoucef@outlook.com"
