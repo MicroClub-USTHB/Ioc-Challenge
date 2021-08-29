@@ -5,9 +5,26 @@
     "type": "module",
     "main": "app.js",
     "scripts": {
-        "start": "node ."
+        "start": "node .",
+        "doc": "jsdoc -d docs app.js"
     },
+    "keywords": [
+        "challenge",
+        "Micro Club",
+        "IOC",
+        "Impact of code",
+        "MC event"
+    ],
     "private": false,
     "author": "shirogin",
-    "license": "ISC"
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "directory": "git+https://github.com/MicroClub-USTHB/Ioc-Challenge.git"
+    },
+    "bugs": {
+        "url": "https://github.com/MicroClub-USTHB/Ioc-Challenge/issues",
+        "email": "madadiyoucef@outlook.com"
+    },
+    "homepage": "https://github.com/MicroClub-USTHB/Ioc-Challenge#readme"
 }
