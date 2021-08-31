@@ -2,7 +2,7 @@
  * This JavaScript file contains foo bar baz...
  *
  * @projectname impact-of-code
- * @version 1.0.3
+ * @version 1.0.8
  * @author shirogin
  * @copyright 2021
  */
@@ -48,6 +48,7 @@ class Challenge {
     _OutputGenerated = false;
     _Inputs = [];
     _Output = 0;
+    _type = "string";
     /**
      * Create a challenge that randomly create a number of inputs with size between [MinInput,MaxInput] if you don't provide a set of inputs before. and then create the output corresponded to the input generated or set.
      * @param {I_O} [I_O={}] the inputs and the output of the challenge to be set if its already generated.
@@ -78,7 +79,7 @@ class Challenge {
      * @throws {NotImplemented} throws an error if this method not re-implemented after extending.
      * @returns {void}
      */
-    InputGenerator(InputNum) {
+    InputsGenerator(InputNum) {
         throw new NotImplemented("InputGenerator");
     }
     /**
@@ -108,17 +109,10 @@ class Challenge {
      */
     CheckOutput(answer) {
         if (!this._OutputGenerated) this.OutputGenerator();
-        let b = answer === this._Output;
-        return {
-            message: b
-                ? Answers.Correct
-                : typeof this._Output === "string"
-                ? Answers.Wrong
-                : this._Output > output
-                ? Answers.Lower
-                : Answers.Higher,
-            result: b,
-        };
+        if (answer == this._Output) return { message: Answers.Correct, result: true };
+        else if (this._type === "number")
+            return { message: this._Output > answer ? Answers.Lower : Answers.Higher, result: false };
+        return { message: Answers.Wrong, result: false };
     }
     /**
      * an abstract method to remake when extended made for Generating an Output for the challenges

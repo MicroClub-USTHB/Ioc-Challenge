@@ -1,6 +1,6 @@
 {
     "name": "impact-of-code",
-    "version": "1.0.3",
+    "version": "1.0.8",
     "description": "Micro club usthb is Making new online challenges called Impact of code That are modeled in this package.",
     "type": "module",
     "main": "app.js",
@@ -9,7 +9,7 @@
         "doc": "jsdoc -d docs app.js Errors/NotImplemented.js Errors/NoChallenge.js Errors/NotExtended.js README.md",
         "postinstall": "npx"
     },
-    "bin": "bin/app.js",
+    "bin": "bin/cli.js",
     "keywords": [
         "challenge",
         "Micro-Club",

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { execSync } from "child_process";
 const runCmd = (cmd) => {
         try {
@@ -8,9 +9,9 @@ const runCmd = (cmd) => {
         }
         return true;
     },
-    repoName = process.argv[2] || "ioc-challenge-" + new Date().getFullYear(),
+    repoName = process.argv[2] || "ioc-challenges-" + new Date().getFullYear(),
     gitCheckoutCmd = `git clone --depth 1 https://github.com/MicroClub-USTHB/ioc-starter.git ${repoName}`,
-    installDepsCmd = `cd ${repoName} && npm install`;
+    installDepsCmd = `cd ${repoName} && npm install && rm .git -rf`;
 console.log(`Cloning the repository with name ${repoName}`);
 const checkout = runCmd(gitCheckoutCmd);
 if (!checkout) process.exit(-1);
